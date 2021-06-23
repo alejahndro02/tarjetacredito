@@ -8,19 +8,19 @@
             </div>
             <div class="input-group input-group-lg mb-3">
                 <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
-                <input type="text" formControlName="numeroTarjeta" class="form-control" placeholder="Numero de la Tajeta">
+                <input type="text" formControlName="numeroTarjeta" class="form-control" maxlength="16" placeholder="Numero de la Tajeta">
             </div>
             <div class="row">
                 <div class="col-lg-7">
                     <div class="input-group input-group-lg mb-3">
-                        <input type="text" formControlName="fechaExpiracion" class="form-control" placeholder="MM/YY">
+                        <input type="text" formControlName="fechaExpiracion" class="form-control" maxlength="5" placeholder="MM/YY">
                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="input-group input-group-lg mb-3">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        <input type="password" formControlName="cvv" class="form-control" placeholder="CVV">
+                        <input type="password" formControlName="cvv" class="form-control" maxlength="3" placeholder="CVV">
                     </div>
                 </div>
             </div>
