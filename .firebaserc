@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tarjetacredito-f6b91": {
+      "hosting": {
+        "tarjetacredito": [
+          "tarjetacredito-f6b91"
+        ]
+      }
+    }
+  }
+}
