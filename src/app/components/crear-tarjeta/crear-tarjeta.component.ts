@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CrearTarjetaComponent implements OnInit {
   form: FormGroup;
+  loading = false;
 
   constructor(private fb: FormBuilder,
               private _tajetaService:TarjetaService,
@@ -35,13 +36,16 @@ crearTarjeta=()=>{
     fechaCreacion: new Date(),
     fechaActualizacion: new Date(),
   }
-  console.log(TARJETA);
+
+  this.loading = true;
+  
   this._tajetaService.guardarDatos(TARJETA).then(()=>{
+    this.loading=false;
     this.toastr.success('La tarjeta fue registrada con exito!', 'Tarjeta Registrada')
     this.form.reset();
   }, error=>{
-    this.toastr.error('La tajeta fue rechazada verifica de nuevo', 'Tarjeta Rechazada')
-
+    this.loading=false;
+    this.toastr.error(error)
   })
   
 }
