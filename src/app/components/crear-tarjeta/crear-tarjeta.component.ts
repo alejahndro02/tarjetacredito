@@ -1,6 +1,7 @@
 import { TarjetaCredito } from './../../models/TarjetaCredito';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TarjetaService } from 'src/app/services/tarjeta.service';
 
 @Component({
   selector: 'app-crear-tarjeta',
@@ -10,7 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CrearTarjetaComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder,
+              private _tajetaService:TarjetaService ) { 
     this.form = this.fb.group({
       titular:['', Validators.required],
       numeroTarjeta:['', [Validators.required,Validators.minLength(16),Validators.maxLength(16)]],
@@ -32,6 +34,13 @@ crearTarjeta=()=>{
     fechaActualizacion: new Date(),
   }
   console.log(TARJETA);
+  this._tajetaService.guardarDatos(TARJETA).then(()=>{
+    console.log('registro exitoso');
+    this.form.reset();
+  }, error=>{
+    console.log(error);
+    
+  })
   
 }
 }
