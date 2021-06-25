@@ -8,7 +8,7 @@
                 <td>{{tarjeta.fechaExpiracion}}</td>
                 <td>
                     <i class="fas fa-edit text-info"></i>
-                    <i class="fas fa-trash text-danger"></i>
+                    <i (click)="eliminarTarjeta(tarjeta.id)" class="fas fa-trash text-danger"></i>
                 </td>
             </tr>
         </table>
