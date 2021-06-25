@@ -1,4 +1,6 @@
+import { TarjetaCredito } from './../../models/TarjetaCredito';
 import { Component, OnInit } from '@angular/core';
+import { TarjetaService } from 'src/app/services/tarjeta.service';
 
 @Component({
   selector: 'app-listar-tarjeta',
@@ -6,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./listar-tarjeta.component.css']
 })
 export class ListarTarjetaComponent implements OnInit {
-
-  constructor() { }
+  listTarjetas:TarjetaCredito[] = [];
+  constructor(private _tarjetaService: TarjetaService) { }
 
   ngOnInit(): void {
+    this.obtenerDatos();
   }
-
+  obtenerDatos(){
+    this._tarjetaService.obtenerDatos().subscribe( (doc) =>{
+      this.listTarjetas = [];
+      doc.forEach((element:any)=>{
+        this.listTarjetas.push({
+          id:element.payload.doc.id,
+          ...element.payload.doc.data()
+        });
+      })
+      console.log(this.listTarjetas);
+      
+    })
+  }
 }
