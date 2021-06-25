@@ -19,6 +19,9 @@ export class TarjetaService {
   eliminarDatos(id:string):Promise<any>{
     return this.firestore.collection('tarjetas').doc(id).delete().then();
   }
+  editarTarjeta(id:string, tarjeta:any):Promise<any>{
+    return this.firestore.collection('tarjetas').doc(id).update(tarjeta);
+  }
   addTajetaEdit(tarjeta:TarjetaCredito){
     this.tarjeta$.next(tarjeta);
   }
