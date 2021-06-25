@@ -8,12 +8,15 @@ import { Observable } from 'rxjs';
 })
 export class TarjetaService {
 
-  constructor(private firebase:AngularFirestore) { }
+  constructor(private firestore:AngularFirestore) { }
   
-  guardarDatos=(tarjeta:TarjetaCredito):Promise<any>=>{
-    return this.firebase.collection('tarjetas').add(tarjeta)
+  guardarDatos(tarjeta:TarjetaCredito):Promise<any>{
+    return this.firestore.collection('tarjetas').add(tarjeta)
   }
-  obtenerDatos=():Observable<any>=>{
-    return this.firebase.collection('tarjetas', ref => ref.orderBy('fechaCreacion', 'asc')).snapshotChanges();
+  obtenerDatos():Observable<any>{
+    return this.firestore .collection('tarjetas', ref => ref.orderBy('fechaCreacion', 'asc')).snapshotChanges();
+  }
+  eliminarDatos(id:string):Promise<any>{
+    return this.firestore.collection('tarjetas').doc(id).delete().then()
   }
 }
