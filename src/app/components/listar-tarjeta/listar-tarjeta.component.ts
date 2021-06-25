@@ -2,6 +2,7 @@ import { TarjetaCredito } from './../../models/TarjetaCredito';
 import { Component, OnInit } from '@angular/core';
 import { TarjetaService } from 'src/app/services/tarjeta.service';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listar-tarjeta',
@@ -29,9 +30,12 @@ export class ListarTarjetaComponent implements OnInit {
   }
   eliminarTarjeta(id:any){
     this._tarjetaService.eliminarDatos(id).then(()=>{
-      this.toastr.error('El registro se ha eliminado con exito!', 'Registro Eliminado ')
+      this.toastr.error('El registro se ha eliminado con exito!', 'Registro Eliminado ');
     },error =>{
-      this.toastr.error('Opps! hubo un problema','Se ha producido un error')
+      this.toastr.error('Opps! hubo un problema','Se ha producido un error');
     })
+  }
+  editarTarjeta(tarjeta:TarjetaCredito){
+    this._tarjetaService.addTajetaEdit(tarjeta);
   }
 }
