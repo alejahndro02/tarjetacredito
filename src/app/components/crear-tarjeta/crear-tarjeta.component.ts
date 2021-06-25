@@ -12,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 export class CrearTarjetaComponent implements OnInit {
   form: FormGroup;
   loading = false;
+  titulo ="Agregar Tarjeta";
+  id: string | undefined;
 
   constructor(private fb: FormBuilder,
               private _tajetaService:TarjetaService,
@@ -27,11 +29,44 @@ export class CrearTarjetaComponent implements OnInit {
   ngOnInit(): void {
     this._tajetaService.getTarjetaEdit().subscribe(data=>{
       console.log(data);
-      
+      this.id=data.id;
+      this.titulo = 'Editar Tarjeta'
+      this.form.patchValue({
+        titular: data.titular,
+        numeroTarjeta: data.numeroTarjeta,
+        fechaExpiracion: data.fechaExpiracion,
+        cvv: data.cvv,
+      })
     })
   }
-crearTarjeta=()=>{
-  console.log(this.form);
+guardarTarjeta(){
+  if(this.id === undefined){
+    this.agregarTarjeta();
+  }else{
+    this.editarTarjeta(this.id)
+  }
+}
+editarTarjeta(id:string){
+  const TARJETA:any = {
+    titular:this.form.value.titular,
+    numeroTarjeta:this.form.value.numeroTarjeta,
+    fechaExpiracion:this.form.value.fechaExpiracion,
+    cvv:this.form.value.cvv,
+    fechaActualizacion: new Date(),
+  }
+  this.loading=true;
+  this._tajetaService.editarTarjeta(id, TARJETA).then(()=>{
+    this.loading=false;
+    this.titulo= "Agregar Tarjeta";
+    this.form.reset()
+    this.id= undefined;
+    this.toastr.info('La tarjeta fue actualizada con exito', 'Registro Actualizado')
+  }, error => {
+    console.log(error);
+    
+  })
+}
+agregarTarjeta(){
   const TARJETA:TarjetaCredito = {
     titular:this.form.value.titular,
     numeroTarjeta:this.form.value.numeroTarjeta,
@@ -42,7 +77,6 @@ crearTarjeta=()=>{
   }
 
   this.loading = true;
-  
   this._tajetaService.guardarDatos(TARJETA).then(()=>{
     this.loading=false;
     this.toastr.success('La tarjeta fue registrada con exito!', 'Tarjeta Registrada');
@@ -51,6 +85,5 @@ crearTarjeta=()=>{
     this.loading=false;
     this.toastr.error('Ops! se produjo un error', 'Error')
   })
-  
 }
 }
