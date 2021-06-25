@@ -14,6 +14,6 @@ export class TarjetaService {
     return this.firebase.collection('tarjetas').add(tarjeta)
   }
   obtenerDatos=():Observable<any>=>{
-    return this.firebase.collection('tarjetas').snapshotChanges();
+    return this.firebase.collection('tarjetas', ref => ref.orderBy('fechaCreacion', 'asc')).snapshotChanges();
   }
 }
