@@ -25,6 +25,10 @@ export class CrearTarjetaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._tajetaService.getTarjetaEdit().subscribe(data=>{
+      console.log(data);
+      
+    })
   }
 crearTarjeta=()=>{
   console.log(this.form);
@@ -41,11 +45,11 @@ crearTarjeta=()=>{
   
   this._tajetaService.guardarDatos(TARJETA).then(()=>{
     this.loading=false;
-    this.toastr.success('La tarjeta fue registrada con exito!', 'Tarjeta Registrada')
+    this.toastr.success('La tarjeta fue registrada con exito!', 'Tarjeta Registrada');
     this.form.reset();
   }, error=>{
     this.loading=false;
-    this.toastr.error(error)
+    this.toastr.error('Ops! se produjo un error', 'Error')
   })
   
 }
