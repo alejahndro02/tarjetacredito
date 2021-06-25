@@ -23,8 +23,6 @@ export class ListarTarjetaComponent implements OnInit {
           ...element.payload.doc.data()
         });
       })
-      console.log(this.listTarjetas);
-      
     })
   }
 }
